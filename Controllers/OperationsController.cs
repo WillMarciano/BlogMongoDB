@@ -8,12 +8,12 @@ namespace BlogMongoDB.Controllers
 {
     public class OperationsController : Controller
     {
-        private UserManager<ApplicationUser> userManager;
-        private RoleManager<ApplicationRole> roleManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
         public OperationsController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
         {
-            this.userManager = userManager;
-            this.roleManager = roleManager;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
         public ViewResult Create() => View();
 
@@ -28,7 +28,11 @@ namespace BlogMongoDB.Controllers
                     Email = user.Email
                 };
 
-                IdentityResult result = await userManager.CreateAsync(appUser, user.Password);
+                IdentityResult result = await _userManager.CreateAsync(appUser, user.Password);
+
+                //Adding User to Admin Role
+                await _userManager.AddToRoleAsync(appUser, "User");
+
                 if (result.Succeeded)
                     ViewBag.Message = "Usuario Criado com Sucesso";
                 else
@@ -47,7 +51,7 @@ namespace BlogMongoDB.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityResult result = await roleManager.CreateAsync(new ApplicationRole() { Name = name });
+                IdentityResult result = await _roleManager.CreateAsync(new ApplicationRole() { Name = name });
                 if (result.Succeeded)
                     ViewBag.Message = "Regra Adicionado com Sucesso";
                 else
