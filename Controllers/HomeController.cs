@@ -73,8 +73,23 @@ namespace BlogMongoDB.Controllers
         public IActionResult Privacy() => View();
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error() 
+        public IActionResult Error()
             => View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+
+        [HttpPost]
+        public async Task<ActionResult> NovoComentario(NovoComentarioModel model)
+        {
+            if (!ModelState.IsValid)
+                return RedirectToAction("Publicacao", new { id = model.PublicacaoId });
+
+            var comment = new Comentario(User.Identity.Name, model.Conteudo);
+
+            var condicao = Builders<Publicacao>.Filter.Eq(x => x.Id, model.PublicacaoId);
+            var condicaoAlteracao = Builders<Publicacao>.Update.Push(x => x.Comentarios, comment);
+            await _repository.Publicacoes.UpdateOneAsync(condicao, condicaoAlteracao);
+
+            return RedirectToAction("Publicacao", new { id = model.PublicacaoId });
+        }
 
         private async Task<List<Publicacao>> BuscarPublicacoesRecentes()
         {
