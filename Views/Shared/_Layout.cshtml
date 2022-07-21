@@ -24,22 +24,37 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-
-                        <div class="col-lg-9 col-sm-7 col-8 order-2 order-lg-3">
-                            <div class="d-flex justify-content-end">
-                                @{
-                                    if (User?.Identity?.IsAuthenticated ?? false)
-                                    {
-                                        <li>Bem Vindo: @User.Identity.Name | <a asp-controller="Account" asp-action="Logout" class="btn btn-outline-danger">Logout</a></li>                                        
-                                    }
-                                    else
-                                    {
-                                        <a asp-area="" asp-controller="Account" asp-action="Login" class="btn btn-outline-primary">Logar</a>
-                                    }
-                                }
-                            </div>
-                        </div>
+                        <li class="nav-item">
+                            @*<a class="nav-link text-dark" asp-area="" asp-controller="Secured" asp-action="Index">Claims</a>*@
+                        </li>
                     </ul>
+                    <div class="col-lg-9 col-sm-7 col-8 order-2 order-lg-3">
+                        <div class="d-flex justify-content-end">
+                            @{
+                                if (User?.Identity?.IsAuthenticated ?? false)
+                                {
+                                    <div class="widget-header">
+                                        <small class="title text-muted">Bem vindo!</small>
+                                        <div>
+                                            <a asp-area="" asp-controller="Secured" asp-action="Index">@User.Identity.Name</a> <span> | </span>
+                                            <a asp-area="" asp-controller="Account" asp-action="Logout">Sair</a>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="widget-header">
+                                        <small class="title text-muted">Bem vindo!</small>
+                                        <div>
+                                            <a asp-area="" asp-controller="Account" asp-action="Login">Logar</a> <span> | </span>
+                                            <a asp-controller="Operations" asp-action="Create">Crie sua conta</a>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+
 
 
                 </div>
