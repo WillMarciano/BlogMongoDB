@@ -6,11 +6,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BlogMongoDB.Controllers
 {
-    public class OperationsController : Controller
+    public class RegisterController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
-        public OperationsController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
+        public RegisterController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;

@@ -1,0 +1,46 @@
+﻿@model NovaPublicacaoModel
+@{
+    ViewBag.Title = "Nova Publicação";
+}
+<h2>@ViewBag.Titulo</h2>
+@Html.ValidationSummary(true)
+
+<form method="post">
+    <div class="row">
+
+        <div class="col-md-8">
+            <section id="novaPublicacaoForm">
+                @Html.AntiForgeryToken()
+                <h4>Nova Publicação</h4>
+                <hr />
+                @Html.ValidationSummary(true)
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Titulo, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Titulo, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Titulo, null , new { @class = "text-danger"})
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Conteudo, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(m => m.Conteudo, new{ @class="form-control"})
+                        @Html.ValidationMessageFor(m => m.Conteudo, null , new { @class = "text-danger"})
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Tags, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Tags, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Tags, null , new { @class = "text-danger"})
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
