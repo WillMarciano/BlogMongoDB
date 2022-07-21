@@ -30,7 +30,7 @@
                                 @{
                                     if (User?.Identity?.IsAuthenticated ?? false)
                                     {
-                                        <li>bem Vindo: @User.Identity.Name | <a asp-controller="Account" asp-action="Logout" class="btn btn-outline-danger">Logout</a></li>                                        
+                                        <li>Bem Vindo: @User.Identity.Name | <a asp-controller="Account" asp-action="Logout" class="btn btn-outline-danger">Logout</a></li>                                        
                                     }
                                     else
                                     {
