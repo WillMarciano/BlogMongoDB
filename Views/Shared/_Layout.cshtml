@@ -24,7 +24,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+
+                        <div class="col-lg-9 col-sm-7 col-8 order-2 order-lg-3">
+                            <div class="d-flex justify-content-end">
+                                @{
+                                    if (User?.Identity?.IsAuthenticated ?? false)
+                                    {
+                                        <li>bem Vindo: @User.Identity.Name | <a asp-controller="Account" asp-action="Logout" class="btn btn-outline-danger">Logout</a></li>                                        
+                                    }
+                                    else
+                                    {
+                                        <a asp-area="" asp-controller="Account" asp-action="Login" class="btn btn-outline-primary">Logar</a>
+                                    }
+                                }
+                            </div>
+                        </div>
                     </ul>
+
+
                 </div>
             </div>
         </nav>
